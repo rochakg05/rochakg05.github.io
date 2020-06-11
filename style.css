@@ -1,0 +1,15 @@
+/* Select all <table> elements with class tableSimple */
+table.tableSimple {
+    margin: auto;
+    border: 1px solid black;
+}
+
+table.tableSimple tr, td {
+    border: 1px solid black;
+}
+
+.headDiv {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
