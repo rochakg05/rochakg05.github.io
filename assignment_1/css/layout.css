@@ -105,15 +105,20 @@ header {
       margin-right: 5px;
       color:#d8d8d8;
       display:block;
-      padding-left:25px;
+      padding-left:20px;
+      margin-left: 10px;
   }
    .header-bottom-right-cont ul li.active a {
       color: #000;
   }
   
+    .header-bottom-right-cont ul li {
+        margin-right: 20px;
+    }
+  
   /* asfasf */
 
-.search-widget {
+search-widget {
     display: inline;
     margin: 20px;
     width: 355px;
@@ -124,22 +129,34 @@ header {
     background: url('../images/search.png') no-repeat;
     padding: 0px 10px;
 
-    line-height: 22px;
+    line-height: 25px;
     width: 256px;
 }
 
+#search-sep
+{
+    margin-right: 4px;
+    }
+#search-cross
+{
+    margin-right: 0;
+}
+
+#search-glass {
+    margin-left: 2;
+}
 .search-box-item {
     display: table-cell;
+
 }
 /* for the input field only */
 .search-box input {
     width: 100%;
     background: transparent;
     border: 0;
-    font-size: 11px;
+    font-size: 9px;
     
 }
-
 
 .search-button {
     margin-left: 6px;
