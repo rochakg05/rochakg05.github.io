@@ -1,0 +1,15 @@
+.clearfix {
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.clearfix::after{
+    float: none;
+}
+
+*{
+    margin:0;
+    padding:0;
+}
+
+
