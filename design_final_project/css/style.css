@@ -1,5 +1,6 @@
 body {
     /*background: white; */
+    font-family: 'Roboto', sans-serif;
 }
 header {
     background: white;
@@ -17,7 +18,15 @@ header {
     color: grey;
 }
 
+.sidebar.clearfix li a{
+    border-radius: 12px;
+    padding: 15px 20px;
+}
 
+.sidebar.clearfix li a:hover {
+    background-color:  #60F2C8;
+    color: white;
+}
 
 @media (min-width: 320px)
 {
@@ -105,8 +114,8 @@ header {
         list-style: none;
         display: inline-block;
         float: left;
-        margin-right: 20px;
-        margin-left: 20px;
+        margin-right: 15px;
+        margin-left: 15px;
     }
     
     .sidebar__button {
@@ -167,6 +176,11 @@ header {
     margin-left: auto;
     margin-right: auto;
     transform: scale(0.8);
+}
+
+.but-red img:hover{
+    opacity: 0.8;
+
 }
 
 @media (min-width: 320px) {
@@ -236,8 +250,10 @@ header {
     }
 }
 
+
 .card-service .card-title-cont {
     margin-top: 20px;
+    margin-bottom: 20px;
     font-weight: bold;
 }
 
@@ -286,7 +302,9 @@ header {
 @media (min-width: 768px)
 {
  
-    
+    .container-design .wrapper-content .wrapper-img {
+        margin-top: 5%;
+    }
     .container-design .wrapper-content .wrapper-img  img {
             margin: 0 auto;
         
@@ -301,6 +319,7 @@ header {
     .container-design .wrapper-content .wrapper-text p {
         font-size: 16;
     }   
+
     
 }
 
@@ -346,7 +365,22 @@ header {
 /* section design */
 .container-design-yes {
     background-image: linear-gradient(to bottom right, #60F2C8, #48DBCC);
+    padding-top: 2%;
 }
+
+.design-li-wrapper{
+    margin-top: 100px;
+}
+
+
+.design .design-li li a:hover {
+    color: white;
+}
+
+.design .design-li .design-li-active {
+    color: white;
+}
+
 
 @media (min-width: 320px)
 {
@@ -400,7 +434,7 @@ header {
     }
     */
     .design .design-li  {
-        text-align: center; // centr <ul> and <li> after using inline-block on them; make them behave like lines of text
+        text-align: center; /* centr <ul> and <li> after using inline-block on them; make them behave like lines of text */
         margin: 0 auto;
     }
 
@@ -491,7 +525,7 @@ header {
 .design .design-arrow a:visited { outline: none; }
 
 .design .user-cont-row-item p {
-    color: #D3D7D9;
+    color: grey;
 }
 
 
@@ -607,6 +641,7 @@ header {
 }
 .container-client .container-text h3 {
     color: #3F4244;
+    
 }
 
 /* WHAT CLIENTS SAY */
@@ -618,13 +653,42 @@ header {
     color: #A1A8AD;
 }
 
+.container-text{
+    margin-bottom: 20px;
+}
+
 @media (min-width: 320px) {
     .container-client .container-cards {
         display: inline-block;
+        padding: 15px;
     }
+    
+
+        
+    .special-power-card  .client-photo img {
+        max-width: 100%;
+        max-height: 100%;
+
+    }
+
+}
+
+.power-team .container-client .container-text h3 {
+    font-size: 42;
 }
 
 @media (min-width: 768px) {
+    
+    .power-team .container-client .container-text h3 {
+        margin-bottom: 2.5%;
+    }
+    .power-team .container-client .container-text {
+        margin-bottom: 5%;
+    }
+    
+        .power-team .container-client .container-text {
+        margin-bottom: 5%;
+    }
 
     .container-client .container-cards {
         width: 80%;
@@ -637,6 +701,12 @@ header {
    .container-client .container-cards .client-card {
        display: table-cell;
     }
+    
+    .container-client .container-cards .client-card .client-photo img {
+        width: 100%;
+        height: 100%;
+
+    }
 }
 
 .container-client .container-cards .client-card {
@@ -645,11 +715,6 @@ header {
 
 }
 
-.container-client .container-cards .client-card .client-photo img {
-    width: 100%;
-    height: 100%;
-
-}
 
 .container-client p.client-name {
     font-weight: strong;
@@ -697,13 +762,14 @@ header {
     }
     .fully-responsive .resp-image  img {
         max-width: 100%;
+        transform: scale(0.75);
     
     }
     
-    .fully-responsive-cont .fully-responsive-bottom .button-red {
+    .fully-responsive-cont .fully-responsive-bottom .but-red {
 
         display: inline-block;
-        transform: scale(0.8);
+
     }
     
 
@@ -729,6 +795,13 @@ header {
         width: 40%;
     }
     
+   .fully-responsive .resp-image  img {
+        max-width: 100%;
+        transform: scale(1);
+    
+    }
+    
+    
     .fully-responsive .cont-right {
         padding-top: 5%;
         vertical-align: top;    
@@ -742,7 +815,7 @@ header {
         text-align: left;
     }
 
-    .fully-responsive-bottom .button-red img {
+    .fully-responsive-bottom .but-red img {
 
         transform: scale(1.0);
     }
@@ -752,9 +825,19 @@ header {
 
 }
 
+.cont-arrows img:hover {
+    border: 1px solid black;
+    border-radius: 20px;
+}
 
+.image-but-wrapper img:hover{
+        border: 1px solid white;
+}
 
-
+.design-arrow img:hover {
+    border: 1px solid black;
+    border-radius: 25px;
+}
 
 
 /* text styling */
@@ -776,16 +859,20 @@ header {
     .input-field-small .right {
         float: left;
     }
+    
+    #name.input-field-small {
+        margin-bottom: 3%;
+    }
 
     .input-field {
         font-size: 19px;
-
+        width: 70%;
         height:50px;
     }
     
     .container-contact {
         text-align: center;
-    ]
+    }
     .container-contact .wrapper-form {
         padding-top: 5%;
         display: inline-block;
@@ -798,6 +885,10 @@ header {
 
 @media (min-width: 768px) 
 {
+    #name.input-field-small {
+        margin-bottom: 0;
+    }
+
     #name.input-field-small {
         float: left;
     }
@@ -831,8 +922,14 @@ header {
         margin: 0 auto;
         overflow-x: hidden;
     }
+    
+    
 }
 
+.container-contact .form-row-3:hover {
+    opacity: 0.8;
+
+}
 
 .container-contact {
     background-image: linear-gradient(to bottom right, #FF6255, #FF2B59);
@@ -947,10 +1044,30 @@ header {
 }
 
 @media (min-width: 320px) {
-    .modern-design-cont {
+    .modern-design-cont .design-image img {
+        transform: scale(0.75);
     
     }
 }
+
+@media (min-width: 992px) {
+    .modern-design .design-image img {
+        position: absolute;
+        transform: translateY(10px);
+        transform: translateX(-50%);
+        z-index: 2;         
+    }
+    
+    .modern-design .modern-design-cont {
+        width: 40%;
+        display: table-cell;
+    } 
+
+
+
+}
+
+/*
 
 @media (min-width: 768px) {
     .modern-design .design-image img {
@@ -969,6 +1086,7 @@ header {
 
 }
 
+*/
 
 .modern-design .cont-right {
     padding-top: 5%;
@@ -1000,15 +1118,19 @@ header {
 
 @media (min-width: 320px)  {
     .wrapper-address {
-        width: 80%;
-        margin: 0 auto; 
+        width: 60%;
+       float: right;
     }
+    
+    .container-address { 
+        padding-right: 20px;
+    }   
 }
 @media (min-width: 768px) 
 {
     .wrapper-address {
         width: 20%;
-        margin-left: 60%; 
+        margin-right: 10%;
     }
 }
 .wrapper-address {
@@ -1035,6 +1157,19 @@ footer {
     margin: 0 auto;
 }
 
+@media (min-width: 320px)
+{
+    .footer-content {
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 768px)
+{
+    .footer-content {
+        font-size: 20px;
+    }
+}
 
 /* global */
 image-but-wrapper a {
@@ -1059,3 +1194,35 @@ image-but-wrapper img  :hover {
 }
 
 /* float stuff end */
+
+
+@media (min-width: 320px) {
+    
+    .container-services .card-service {
+        margin: 5% 5%;
+        padding: 1%;
+        font-size: 80%;
+    }
+    
+    .container-stats .stat-item-cont {
+        height: 50%;
+        margin: 0 2%;
+    }
+    .container-stats .stat-item-cont img {
+        width: 40%;
+        padding: 10%;
+    }
+        
+    .container-stats .stat-item-cont.jokes img {
+        width: 70%;
+    }
+    .container-client .container-cards .client-card {
+        padding: 2% 0;
+        margin: 4% 0;
+    }
+    .container-client .container-text {
+        width: 100%;
+    }
+
+}
+
