@@ -1,0 +1,29 @@
+.button-cont {
+    text-align: center;
+}
+
+.carousel-image-wrapper {
+
+  height = 100%;
+  position = 'absolute';
+  left = 0;
+}
+
+.carousel-container{
+  margin: 0 auto;
+  margin-top: 5%;
+  height: 400px;
+  width: 600px;
+  overflow: hidden;
+  position: relative;
+}
+
+#button-next img {
+    width: 50px;
+}
+
+
+
+#button-prev img {
+    width: 50px;
+}
