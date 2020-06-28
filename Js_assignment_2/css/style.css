@@ -1,0 +1,46 @@
+.button-cont {
+    text-align: center;
+}
+.carousel-bullet:hover {
+    background-color: rgba(65, 109, 33, 0.9);
+}
+
+
+@media (min-width: 320px) {
+
+    .carousel-container{
+      margin: 0 auto;
+      margin-top: 5%;
+      
+      height: 213px;
+      width: 320px;
+       
+      overflow: hidden;
+      position: relative;
+    }
+}
+
+@media (min-width: 768px) {
+    .carousel-container{
+      margin: 0 auto;
+      margin-top: 5%;
+      
+      height: 400px;
+      width: 600px;
+       
+      overflow: hidden;
+      position: relative;
+    }
+}
+#button-next img {
+    width: 50px;
+}
+
+
+
+#button-prev img {
+    width: 50px;
+}
+
+
+
