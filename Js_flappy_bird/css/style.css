@@ -1,0 +1,8 @@
+.container {
+    margin: 0 auto;
+}
+
+#chief-canvas {
+    margin-left: 10%;
+    border: 1px solid black;
+}
