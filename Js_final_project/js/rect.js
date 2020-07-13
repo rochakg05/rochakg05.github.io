@@ -22,6 +22,18 @@ class Rect {
 
         return cond1 && cond2 && cond3 && cond4;
     }
+     checkCollideClearance(otherRect, c_top, c_left, c_right) {
+
+        var rect1 = this;
+        var rect2 = otherRect;
+
+        var cond1 = rect1.x < (rect2.x - c_left) + rect2.w;
+        var cond2 = rect1.x + rect1.w > rect2.x + c_right;
+        var cond3 = rect1.y <  (rect2.y) + rect2.h;
+        var cond4 = rect1.y + rect1.h > (rect2.y);
+
+        return cond1 && cond2 && cond3 && cond4;
+    }
     
 
 

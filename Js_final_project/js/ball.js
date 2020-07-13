@@ -72,9 +72,9 @@ class Ball {
     checkXBlocked(hoops) {
         
         var ret_val = false;
-        var x_dir = 3;
+        var x_dir = 5;
         if (this.vel_x < 0) {
-            x_dir = -3;
+            x_dir = -5;
         }
         
         this.rect.x += x_dir;
@@ -82,6 +82,8 @@ class Ball {
         for (let hoop of hoops) {
             if (hoop.checkBallRingCollide(this)) {
                 ret_val = true;
+
+                hoop.swished = false;
                 break;
             }
         }
@@ -93,9 +95,9 @@ class Ball {
     checkYBlocked(hoops) {
         
         var ret_val = false;
-        var y_dir = 3;
+        var y_dir = 5;
         if (this.vel_y < 0) {
-            y_dir = -3;
+            y_dir = -5;
         }
         
         this.rect.y += y_dir;
@@ -103,6 +105,14 @@ class Ball {
         for (let hoop of hoops) {
             if (hoop.checkBallRingCollide(this)) {
                 ret_val = true;
+
+                // collides -> set swish to false
+                hoop.swished = false
+                // move along with hoop to give illusion of solidity
+                this.pos_y += hoop.vel_y;
+                this.rect.y += hoop.vel_y;
+
+                this.vel_y = 0;
                 break;
             }
         }
@@ -118,14 +128,13 @@ class Ball {
         if (!this.checkXBlocked(hoops)) {
             this.pos_x += this.vel_x;
             this.rect.x = this.pos_x;
-        }
+        } 
+
         
         if (!this.checkYBlocked(hoops)) {
             this.pos_y += this.vel_y;
             this.rect.y = this.pos_y;
-        } else {
-            this.vel_y = 0;
-        }
+        } 
         
                 //this.pos_x += this.vel_x;
     }
