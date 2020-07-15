@@ -1,10 +1,11 @@
 class Button {
-    constructor(pos_x, pos_y, text) {
+    constructor(pos_x, pos_y, text, callback) {
         this.pos_x = pos_x;
         this.pos_y = pos_y;
         this.text = text;
+        this.callback = callback;
 
-        this.w = 200;
+        this.w = 150;
         this.h = 50;
         this.enabled = true;
     }
@@ -29,7 +30,7 @@ class Button {
         context.fillRect(this.pos_x, this.pos_y, this.w, this.h);
 
         context.fillStyle = "red";
-        context.font = "bold 20px Arial";
+        context.font = "bold 14px Arial";
         context.fillText(this.text, this.pos_x +  this.w/4, this.pos_y + this.h/2);
 
     }

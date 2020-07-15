@@ -35,7 +35,11 @@ class FinishLine {
         for (var i = 0; i < numHeightsNeeded; i++) {
             context.drawImage(this.image, this.pos_x + this.camera_delta, offset + this.pos_y, this.img_width, this.img_height);
             offset += this.img_height;
-        } 
+        }
+        this.rect.h = this.img_height + offset;
+        
+        this.rect.draw(context);
+        
    
     }
 

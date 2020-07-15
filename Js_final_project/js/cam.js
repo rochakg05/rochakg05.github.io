@@ -8,7 +8,7 @@ class Camera {
     
     update() {
         //console.log(this.player.pos_x);
-        var cond = (this.player.pos_x < canvas.width/3);
+        var cond = (this.player.pos_x < canvas.width/CAMERA_FRACTION);
 
         if (cond) {
             return;
