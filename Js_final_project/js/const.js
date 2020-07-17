@@ -14,3 +14,8 @@ var TILTED_HOOP_AMPLITUDE = 60;
 
 var TIME_MIN = 2000;
 var TIME_MAX = 4500;    // for generator
+
+
+ALPHA_RATE = 0.05;      // rate of disappearance of hoops
+var PSPEED = 3;         // for flaming 
+var PSIZE = 20;

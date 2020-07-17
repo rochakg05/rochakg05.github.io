@@ -3,7 +3,7 @@ class Generator {
     constructor() {
     
         this.min_y = 100;
-        this.max_y = 400;
+        this.max_y = 350;
     }
     
     generate(ball_x, canvas, last_x) {

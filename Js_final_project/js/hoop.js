@@ -4,6 +4,7 @@ class Hoop {
 
         this.context = context;
         this.type = "HORT"
+        this.solid = true; // after passing through, the hoop disappears
         
         this.camera_delta = 0;
         this.dirty = false;     // if passed out of view of camera, dirty, no need to consider for updates
@@ -57,7 +58,7 @@ class Hoop {
     
         //slowly fade away passed hoop
         if (this.hoop_exit) {
-            this.alpha -= 0.02;
+            this.alpha -= ALPHA_RATE;
             if (this.alpha <= 0) {
                 this.alpha = 0;
             }
@@ -109,6 +110,7 @@ class Hoop {
         // We gave the ball a clearance of 5 units to 'look ahead' for collisions
         // We account for that here
         // to up and right for left right, up and left for right ring
+        if (!this.solid) { return false; }
         return  ball.rect.checkCollideClearance(this.rect_l, 6, 0, 6) || ball.rect.checkCollideClearance(this.rect_r, 6, 6, 0);
 
     }

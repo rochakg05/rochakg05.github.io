@@ -2,6 +2,7 @@ class Ground {
     
     constructor(y_offset, canvas) {
         this.y_offset = y_offset;
+        this.canvas = canvas;
         this.pos_x = 0;
         this.pos_y = canvas.height - y_offset;
         this.width = canvas.width;
@@ -10,6 +11,12 @@ class Ground {
         this.camera_delta = 0;
 
         this.rect = new Rect(this.pos_x, this.pos_y, this.width, this.height);
+    }
+    
+    setOffset(new_offset) {
+        this.y_offset = new_offset;
+        this.pos_y = this.canvas.height - this.y_offset;
+        this.rect.y = this.pos_y;
     }
 
     cameraShift(x_delta) {

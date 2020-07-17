@@ -4,6 +4,7 @@ class VerticalHoop {
 
         this.context = context;
         this.type = "VERT"
+        this.solid = true; // after passing through, the hoop disappears
         
         this.alpha = 1;
         this.pos_x = x
@@ -55,9 +56,10 @@ class VerticalHoop {
 
         //slowly fade away passed hoop
         if (this.hoop_exit) {
-            this.alpha -= 0.02;
+            this.alpha -= ALPHA_RATE;
             if (this.alpha <= 0) {
                 this.alpha = 0;
+                this.solid = false;
             }
         }
         //this.pos_x -= SCROLL_SPEED;
@@ -77,7 +79,7 @@ class VerticalHoop {
     }
     
     checkBallRingCollide(ball) {
-            
+         if (!this.solid) { return false; }
         //return ball.rect.checkCollide(this.rect_l) || ball.rect.checkCollide(this.rect_r); 
         return  ball.rect.checkCollideClearance(this.rect_l, 6, 0, 6) || ball.rect.checkCollideClearance(this.rect_r, 6, 6, 0);
 

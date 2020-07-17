@@ -4,11 +4,12 @@ class Camera {
         this.player = player;
         this.canvas = canvas;
         this.shift_x = 0;
+        this.threshold = canvas.width/CAMERA_FRACTION;
     }
     
     update() {
         //console.log(this.player.pos_x);
-        var cond = (this.player.pos_x < canvas.width/CAMERA_FRACTION);
+        var cond = (this.player.pos_x < this.threshold);
 
         if (cond) {
             return;

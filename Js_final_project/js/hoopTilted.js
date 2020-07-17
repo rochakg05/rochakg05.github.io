@@ -4,12 +4,15 @@ class TiltedHoop {
 
         this.context = context;
         this.type = "TILT"
+        this.solid = true; // after passing through, the hoop disappears
+                
         this.tilt_angle = TILT_ANGLE;
         this.vel = TILTED_HOOP_VEL;
         
         this.camera_delta = 0;
         this.dirty = false;     // if passed out of view of camera, dirty, no need to consider for updates
         
+        this.alpha = 1;
         this.pos_x = x
         this.pos_y = y;
         this.orig_x = x;
@@ -95,6 +98,13 @@ class TiltedHoop {
             }
         }
         */
+        if (this.hoop_exit) {
+            this.alpha -= ALPHA_RATE;
+            if (this.alpha <= 0) {
+                this.alpha = 0;
+                this.solid = false;
+            }
+        }
 
         //this.pos_x -= SCROLL_SPEED;
         this.rect.x = this.pos_x  + this.offset;
@@ -104,7 +114,7 @@ class TiltedHoop {
         this.rect.y = this.pos_y + this.image_actual_diff;
         this.rect_l.y = this.pos_y + 10 + this.image_actual_diff;
         this.rect_r.y = this.pos_y + 10;
-    
+        
         if (!this.swished) {
             this.rect.color = "orange";
         }
@@ -117,6 +127,7 @@ class TiltedHoop {
         // We gave the ball a clearance of 5 units to 'look ahead' for collisions
         // We account for that here
         // to up and right for left right, up and left for right ring
+        if (!this.solid) { return false; }
         return  ball.rect.checkCollideClearance(this.rect_l, 6, 0, 6) || ball.rect.checkCollideClearance(this.rect_r, 6, 6, 0);
 
     }
@@ -156,13 +167,15 @@ class TiltedHoop {
     }
 
     drawBack(context) {
+        context.globalAlpha = this.alpha;
         context.drawImage(this.img_back, this.pos_x + this.camera_delta, this.pos_y, this.back_width, this.back_height);
-         
+        context.globalAlpha = 1;
     }
     
     drawFront(context) {
+        context.globalAlpha = this.alpha;
         context.drawImage(this.img_front, this.pos_x + this.camera_delta, this.pos_y + this.back_height - this.image_actual_diff, this.back_width, this.front_height);
-      
+        context.globalAlpha = 1;
    
     }
 

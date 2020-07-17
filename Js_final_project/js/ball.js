@@ -13,6 +13,8 @@ class Ball {
 
         this.pos_x = x
         this.pos_y = y;
+        this.orig_pos_x = x;
+        this.orig_pos_y = y;
         this.vel_x = SCROLL_SPEED;
         this.vel_y = 0;
 
@@ -30,6 +32,10 @@ class Ball {
         
         this.ground_impulse = 0;        // momentum, for bouncing when striking the ground
         this.ground_initial_strike = false;
+        
+        this.flaming = false;
+        this.flame_level = 1;
+        this.particles = [];
 
     }
 
@@ -37,11 +43,23 @@ class Ball {
         this.time_1 = new Date();
     }
     
-    reset(canvas) {
-        this.pos_x = canvas.width/3;
-        this.pos_y = 50;
+    reset() {
+        this.vel_x = SCROLL_SPEED;
+        this.ground_initial_strike = false;
+        this.ground_impulse = 0; 
+        this.camera_delta = 0;
+        this.force_y = FORCE_UP;
+        this.jump_enabled = true;  
+        this.flaming = false;
+        this.flame_level = 1;
+        this.particles = [];
+        
+        this.pos_x = this.orig_pos_x;
+        this.pos_y = this.orig_pos_y;
+        this.rect.x = this.pos_x;
+        this.rect.y = this.pos_y;
     }
-    
+
     cameraShift(x_delta) {
         this.camera_delta = x_delta;
         this.rect.camera_delta = x_delta;
@@ -225,15 +243,58 @@ class Ball {
      }
      */
    }
+   
+   deccelerate() {
+        this.vel_x -= this.vel_x/80;
+        if (this.vel_x <= 1/16) {
+            this.vel_x = 0;
+        }
+   }
+   
+   drawFire(context) {
+        var i;
+        var max = 60;
+        
+        var r = 260;
+        var g = 50;
+        
+        if (this.flame_level == 2) {
+            r = 20;
+            g = 90;
+        } else if (this.flame_level == 3) {
+            r = 70;
+            g = 70;
+        }
+
+          for (i=0; i<this.particles.length; i++) {
+            
+            //Set the file colour to an RGBA value where it starts off red-orange, but progressively gets more grey and transparent the longer the particle has been alive for
+            context.fillStyle = "rgba("+(r-(this.particles[i].life*2))+","+((this.particles[i].life*2)+g)+","+(this.particles[i].life*2)+","+(((max-this.particles[i].life)/max)*0.4)+")";
+            
+            context.beginPath();
+            //Draw the particle as a circle, which gets slightly smaller the longer it's been alive for
+            context.arc(this.camera_delta + this.particles[i].x,this.particles[i].y,(max-this.particles[i].life)/max*(PSIZE/2)+(PSIZE/2),0,2*Math.PI);
+            context.fill();
+            
+            //Move the particle based on its horizontal and vertical speeds
+            this.particles[i].x+=this.particles[i].xs;
+            this.particles[i].y+=this.particles[i].ys;
+            
+            this.particles[i].life++;
+            //If the particle has lived longer than we are allowing, remove it from the array.
+            if (this.particles[i].life >= max) {
+              this.particles.splice(i, 1);
+              i--;
+            }
+        }
+   }
     
 
     update(hoop_haru, ground) {
         //jump is disable only if the player has failed
         if (!this.jump_enabled) {
-            this.vel_x -= 0.005;
-            if (this.vel_x <= 0) {
-                this.vel_x = 0;
-            }
+            this.deccelerate();
+   
         }
         this.time_2 = new Date();
         var elapsed_millisec = this.time_2 - this.time_1;
@@ -246,7 +307,20 @@ class Ball {
         this.move(hoop_haru);
         this.animate();
         
-
+        
+        // flame handling 
+        if (this.flaming) {
+              for (var i=0; i<2; i++) {
+                //Adds a particle at the mouse position, with random horizontal and vertical speeds
+                var p = new Particle(this.pos_x, this.pos_y, (Math.random()*2*PSPEED-PSPEED)/2, 0-Math.random()*2*PSPEED);
+                this.particles.push(p);
+            }
+            this.drawFire(context);
+        }
+        
+        
+        
+        
 
         this.context.drawImage(
             this.current_image, this.pos_x + this.camera_delta, this.pos_y, this.img_width, this.img_height);
