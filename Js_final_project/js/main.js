@@ -31,7 +31,7 @@ var inter_main = null;
 var flipped = false;
 
 var space_released = false;
-var gameOverButton = new Button(canvas.width/2, canvas.height/2, "Main Menu", restartGame);
+var gameOverButton = new Button(canvas.width/3, canvas.height/2, "Tap to continue", restartGame);
 
 function keyDownHandler(event) {
    if (event.keyCode == 32) {
@@ -83,10 +83,7 @@ function level0() {
     }
     
     var finishLine = new FinishLine(-500, -400, "res/finish.png");  // hide this
-    /*
-    GRAVITY = 14;      // heavy gravity
-    FORCE_UP = 3;
-    */
+    
     ball.start();
     start(0, cam, ball, hoops_list, finishLine);
 
@@ -101,17 +98,14 @@ function level1() {
 
     var cam = new Camera(ball, canvas);
     var hoops_list = [];
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 5; i++) {
         var rand_y = Math.random() * 150 + 200; // 2001to 350
-        var hoop = new Hoop(400 + i * 220 , 200, hoop_hort_back_img, hoop_hort_front_img);
+        var hoop = new Hoop(400 + i * 220 , 200,  hoop_hort_back_img, hoop_hort_front_img);
         hoops_list.push(hoop);
     }
     
     var finishLine = new FinishLine(hoops_list[hoops_list.length-1].pos_x + 300, 0, "res/finish.png");
-    /*
-    GRAVITY = 14;      // heavy gravity
-    FORCE_UP = 3;
-    */
+    
 
     start(1, cam, ball, hoops_list, finishLine);
 
@@ -158,7 +152,7 @@ function level3() {
     
     var finishLine = new FinishLine(hoops_list[hoops_list.length-1].pos_x + 300, 0, "res/finish.png");
 
-    start(2, cam, ball, hoops_list, finishLine);
+    start(3, cam, ball, hoops_list, finishLine);
     
 }
 
@@ -346,32 +340,6 @@ function level11() {
     
 }
 
-
-/* 
-
-function level3() {
-
-        //tight level
-
-    
-    ball = new Ball(canvas.width/3, 50, "res/ball_anim/", filenames, context);
-    ball.start();
-
-    var cam = new Camera(ball, canvas);
-    var hoops_list = [];
-    for (var i = 0; i < 10; i++) {
-        var hoop = new Hoop(200 + i * 160 , 200, "res/hoop-back.png", "res/hoop-front.png");
-        hoops_list.push(hoop);
-    }
-    
-    document.getElementById('myCanvas').height = 600;                   //Lesser the screen boundary.
-    document.getElementById('myCanvas').width = window.innerWidth;
-    
-    start(cam, ball, hoops_list);
-
-}
-
-*/
 
 
 
@@ -637,15 +605,7 @@ function start(level, cam, ball, hoops_list, finishLine) {
         }
         
         finishLine.draw(canvas, context);
-        /*
-        if (right_held) {
-            ball.vel_x = SCROLL_SPEED;
-        } else if (left_held) {
-            ball.vel_x = -SCROLL_SPEED;
-        } else {
-            ball.vel_x = 0;
-        }
-        */
+        
         ball.update(hoops_list, ground); //draw also included
         ground.update(ball);
         ground.draw(context);
@@ -675,7 +635,7 @@ function start(level, cam, ball, hoops_list, finishLine) {
             context.fillText(`Score: ${score}`, 10, 45);
         }
         if (disp_text_alpha > 0) {
-            //console.log(disp_text);
+            
             //alert("DRAW");
             context.fillStyle = "rgba(187, 26, 65, " + disp_text_alpha + ")";
             context.font = "italic bold 24pt Arial";
@@ -731,7 +691,7 @@ function menuScreen() {
 	    const x = event.clientX - rect.left;
 	    const y = event.clientY - rect.top;
 
-        //console.log(`${x} ${y}`);
+    
         for (let but of but_list) {
             if (but.buttonClicked(x, y)) {
                 //clearInterval(inter);

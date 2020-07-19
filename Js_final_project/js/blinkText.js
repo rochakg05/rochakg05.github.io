@@ -24,9 +24,7 @@ class BlinkText {
             this.alpha_dir = -this.alpha_dir;
         }
 
-        //console.log(disp_text);
-        //alert("DRAW");
-        //console.log(`rgba(${this.r}, ${this.g}, ${this.b}, ${this.alpha})`);
+        
         context.fillStyle = `rgba(${this.r}, ${this.g}, ${this.b}, ${this.alpha})`;
         context.font = "italic bold 24pt Arial";
         context.fillText(this.text, this.x, this.y);

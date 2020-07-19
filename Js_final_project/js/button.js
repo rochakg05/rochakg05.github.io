@@ -9,6 +9,7 @@ class Button {
         this.h = 50;
         this.enabled = true;
         this.gradient = null;
+
         this.textcolor = "green";
         
     }
@@ -39,7 +40,7 @@ class Button {
 
         context.fillStyle = this.textcolor;
         context.font = "bold 14px Arial";
-        context.fillText(this.text, this.pos_x +  this.w/4, this.pos_y + this.h/2);
+        context.fillText(this.text, this.pos_x +  this.w/5, this.pos_y + this.h/2);
 
     }
 
