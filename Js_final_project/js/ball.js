@@ -1,12 +1,13 @@
 class Ball {
 
-    constructor(x, y, image_elems, context) {
+    constructor(x, y, image, context) {
 
         this.context = context;
         
-        this.image_elems = image_elems;
+        this.image_elems = [];//image_elems;
         this.current_index = -1;
-        this.current_image = null;  // set by animation
+        
+        this.current_image = image;
         
         this.rot_angle = 0;
 
@@ -21,7 +22,7 @@ class Ball {
         this.force_y = FORCE_UP;
         this.jump_enabled = true;       // to implement failure when a hoop is missed
         this.img_width = 36;
-        this.img_height = this.img_width * this.image_elems[0].height / this.image_elems[0].width;
+        this.img_height = this.img_width * this.current_image.height / this.current_image.width;
         this.anim_speed = 200;
         
         this.rect = new Rect(this.pos_x, this.pos_y, this.img_width, this.img_height);
@@ -45,6 +46,7 @@ class Ball {
     
     reset() {
         this.vel_x = SCROLL_SPEED;
+        this.vel_y = 0;
         this.ground_initial_strike = false;
         this.ground_impulse = 0; 
         this.camera_delta = 0;
@@ -173,7 +175,7 @@ class Ball {
             this.rect.y = this.pos_y;
         } 
         
-                //this.pos_x += this.vel_x;
+                
     }
     
     
@@ -192,13 +194,7 @@ class Ball {
 
     lift() {
         if (this.jump_enabled) {
-            /*
-            //Don't allow jumping if already ascending
-            if (this.vel_y > 0) {
-                this.vel_y = -this.force_y;
-                return true;
-            }
-            */
+           
                 this.vel_y = -this.force_y;
                 return true;
         }
@@ -218,14 +214,14 @@ class Ball {
    }
    
    handleGroundCollision() {
-      var ret_val = false; //for souynd
+      var ret_val = false; 
      if (!this.ground_initial_strike) {
         this.ground_impulse = this.vel_y * 0.8;
         this.vel_y = 0;
 
 
         this.ground_initial_strike = false;
-        //this.rollAnimate();
+        
      }
      
      if (this.ground_impulse > 1/8) {
@@ -235,13 +231,7 @@ class Ball {
      } 
      
      return ret_val;
-     /*else {
-        this.vel_x -= 0.01;
-        if (this.vel_x <= 0) {
-            this.vel_x = 0;
-        }
-     }
-     */
+     
    }
    
    deccelerate() {
@@ -258,12 +248,18 @@ class Ball {
         var r = 260;
         var g = 50;
         
-        if (this.flame_level == 2) {
+        if (this.flame_level === 1) {
             r = 20;
-            g = 90;
-        } else if (this.flame_level == 3) {
-            r = 70;
-            g = 70;
+            g = 20;
+        } else if (this.flame_level === 2) {
+            r = 255;
+            g = 255;
+        } else if (this.flame_level >= 3) {
+            r = 260;
+            g = 50;
+        } else if (this.flame_level >= 4) {
+            r = 270;
+            g = 120;
         }
 
           for (i=0; i<this.particles.length; i++) {
@@ -305,7 +301,7 @@ class Ball {
         }
     
         this.move(hoop_haru);
-        this.animate();
+        
         
         
         // flame handling 
@@ -316,6 +312,8 @@ class Ball {
                 this.particles.push(p);
             }
             this.drawFire(context);
+        } else {
+            this.particles = [];    // remove old particles
         }
         
         
@@ -332,7 +330,6 @@ class Ball {
             this.rect.draw(this.context);
         }
     }
-
 
 
 }

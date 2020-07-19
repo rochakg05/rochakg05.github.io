@@ -9,8 +9,7 @@ class FinishLine {
         this.image = new Image();
         this.image.src = img_path;
         
-        // 292 x 32
-        // 50 x  
+         
         this.img_width = 80;
         this.img_height = (this.img_width/ this.image.width) * this.image.height;
         this.rect = new Rect(this.pos_x , this.pos_y , this.img_width,  this.img_height);

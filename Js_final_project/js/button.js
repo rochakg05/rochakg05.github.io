@@ -9,8 +9,7 @@ class Button {
         this.h = 50;
         this.enabled = true;
         this.gradient = null;
-
-        this.textcolor = "green";
+        this.textcolor = "#28E561";
         
     }
 

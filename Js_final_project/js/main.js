@@ -1,8 +1,7 @@
 var filenames = [1].map( (num) => `frame-${num}.png` );
 var canvas = document.getElementById("chief-canvas");
 var context = canvas.getContext('2d');
-
-
+var but_list = [];
 
 
 //pre-load images; share image objects
@@ -12,26 +11,58 @@ var hoop_vert_back_img = new Image();
 var hoop_vert_front_img = new Image();
 var hoop_tilt_back_img = new Image();
 var hoop_tilt_front_img = new Image();
+var image_elem = new Image();
+
+var images_to_load = [hoop_hort_back_img, hoop_hort_front_img, hoop_vert_back_img, hoop_vert_front_img,
+        hoop_tilt_front_img, hoop_tilt_front_img, image_elem];
+var images_loaded = 0;
+
+for (let img_item of images_to_load) {
+    img_item.onload = resourceLoad;
+}
+
+function resourceLoad() {
+
+    images_loaded += 1;
+    //length -1 , because the ball never calls onload
+    if (images_loaded === images_to_load.length-1) {
+        menuScreen();
+    }
+}
 hoop_hort_back_img.src = "res/hoop-back.png";
 hoop_hort_front_img.src = "res/hoop-front.png";
 hoop_vert_back_img.src = "res/hoop-left.png";
 hoop_vert_front_img.src = "res/hoop-right.png";
 hoop_tilt_back_img.src = "res/hoop-rot-back.png";
 hoop_tilt_front_img.src = "res/hoop-rot-front.png"
-var level_text = "EMPTY";
+
+image_elem.src = "res/ball.png";
+
+var ball = null;
+
+
 
 // background image
 var bg = new Image();
 bg.src = "res/bg.jpg";
+var title_img = new Image();
+title_img.src = "res/title.png";
 var hop_audio = new Audio("res/hop.wav");
 var bounce_audio = new Audio("res/bounce.mp3");
+
+
+
+
+var level_text = "EMPTY";
+var high_score = 0;
+
 var error = false;
 
 var inter_main = null; 
 var flipped = false;
 
 var space_released = false;
-var gameOverButton = new Button(canvas.width/3, canvas.height/2, "Tap to continue", restartGame);
+var gameOverButton = new Button(canvas.width/2.5, canvas.height/2, "Main Menu", restartGame);
 
 function keyDownHandler(event) {
    if (event.keyCode == 32) {
@@ -56,24 +87,11 @@ var img_path = "res/ball_anim/";
 var img_paths = filenames.map( (fname) => img_path + fname );
 var image_elems = []
 
-for (let path of this.img_paths) {
-
-    var img_elem = document.createElement("img");
-    img_elem.src = path;
-    img_elem.style.border = "1px solid black"; 
-
-    image_elems.push(img_elem);
-}
-
-var ball = new Ball(canvas.width/3, 50,  image_elems, context);
-image_elems[image_elems.length-1].onload = menuScreen;
 
 
 function level0() {
     // rebind
     level_text = "Normal Endless Play"; 
-
-
 
     var cam = new Camera(ball, canvas);
     var hoops_list = [];
@@ -92,15 +110,15 @@ function level0() {
 function level1() {
 
     // rebind
-    level_text = "Pass all hoops"; 
+    level_text = "Pass All Hoops"; 
 
     ball.start();
 
     var cam = new Camera(ball, canvas);
     var hoops_list = [];
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 15; i++) {
         var rand_y = Math.random() * 150 + 200; // 2001to 350
-        var hoop = new Hoop(400 + i * 220 , 200,  hoop_hort_back_img, hoop_hort_front_img);
+        var hoop = new Hoop(400 + i * 220 , rand_y, hoop_hort_back_img, hoop_hort_front_img);
         hoops_list.push(hoop);
     }
     
@@ -123,7 +141,7 @@ function level2() {
 
     var cam = new Camera(ball, canvas);
     var hoops_list = [];
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 8; i++) {
         var rand_y = Math.random() * 150 + 200; // 2001to 350
         var hoop = new Hoop(400 + i * 220 , rand_y, hoop_hort_back_img, hoop_hort_front_img);
         hoops_list.push(hoop);
@@ -144,7 +162,7 @@ function level3() {
 
     var cam = new Camera(ball, canvas);
     var hoops_list = [];
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 10; i++) {
         var rand_y = Math.random() * 150 + 200; // 2001to 350
         var hoop = new Hoop(400 + i * 220 , rand_y, hoop_hort_back_img, hoop_hort_front_img);
         hoops_list.push(hoop);
@@ -159,7 +177,7 @@ function level3() {
 function level4() {
 
     // rebind
-    level_text = "High Gravity"; 
+    level_text = "Heavy Gravity"; 
     GRAVITY += 5;
 
     ball.start();
@@ -252,7 +270,7 @@ function level8() {
 
     // rebind
     level_text = "Speed up";
-    ball.vel_x += 5;
+    ball.vel_x += 1;
     ball.start();
     
 
@@ -296,7 +314,7 @@ function level9() {
 
 function level10() {
 
-    // rebind
+    
     level_text = "Moving Hoops"; 
 
 
@@ -339,6 +357,8 @@ function level11() {
     start(11, cam, ball, hoops_list, finishLine);
     
 }
+
+
 
 
 
@@ -444,7 +464,7 @@ function start(level, cam, ball, hoops_list, finishLine) {
             //dont rush in 
             if (level == 9 && ball.jump_enabled) {
 
-                ball.vel_x += 0.2;
+                ball.vel_x += 0.1;
             }
             space_released = false;
         }
@@ -495,9 +515,9 @@ function start(level, cam, ball, hoops_list, finishLine) {
         }
 
         
-        if (swish_chain >= 2) {
+        if (swish_chain >= 1) {
             ball.flaming = true;
-            ball.flame_level = swish_chain - 2; // color of fire
+            ball.flame_level = swish_chain; // color of fire
         } else {
             ball.flaming = false;
         }
@@ -597,7 +617,10 @@ function start(level, cam, ball, hoops_list, finishLine) {
             ball.jump_enabled = false;
         }
         
-
+         if ( gameEnded && ball.vel_x === 0) {
+            context.filter = 'blur(5px)';
+            ball.flaming = false;
+         }
         context.drawImage(bg, 0, 0, canvas.width, canvas.height);
 
         for (let hoop of hoops_list) {
@@ -636,7 +659,6 @@ function start(level, cam, ball, hoops_list, finishLine) {
         }
         if (disp_text_alpha > 0) {
             
-            //alert("DRAW");
             context.fillStyle = "rgba(187, 26, 65, " + disp_text_alpha + ")";
             context.font = "italic bold 24pt Arial";
             context.fillText(disp_text, disp_text_x, disp_text_y);
@@ -650,6 +672,27 @@ function start(level, cam, ball, hoops_list, finishLine) {
         if (gameEnded) {
             gameOverButton.enabled = true;
             if (ball.vel_x === 0) {
+                context.filter = "none";
+                
+                
+                if (level == 0) {
+                    if (score > high_score) {
+                        high_score = score;
+                    }
+                    context.fillStyle = "#F69442";
+                    context.font = "italic bold 24pt Arial";
+                    context.fillText(`Final Score: ${score}`, gameOverButton.pos_x, gameOverButton.pos_y - 30);
+                    
+                    context.fillStyle = '#C8F219';
+                    context.font = "italic bold 24pt Arial";
+                    context.fillText(`High Score: ${high_score}`, gameOverButton.pos_x, gameOverButton.pos_y - 70);
+
+                    
+                }
+                
+                
+                
+                
                 gameOverButton.draw(context);
              }
         }
@@ -663,35 +706,35 @@ function start(level, cam, ball, hoops_list, finishLine) {
 
 
 
-var but_list = [];
+
 
 
 function menuScreen() {
-
+    ball = new Ball(canvas.width/3, 50,  image_elem, context);
     //var inter = setInterval(menuScreen, 100);
     if (but_list.length == 0) {
-        but_list.push(new Button(60, 50, "Endless Run", level0));
-        but_list.push(new Button(250, 50, "PassAllHoops", level1));
-        but_list.push(new Button(250, 120, "5 Swishes", level2));
-        but_list.push(new Button(250, 190, "Strong Wings", level3));
-        but_list.push(new Button(250, 260, "Heavy Gravity", level4));
-        but_list.push(new Button(250, 330, "Patience", level5));
-        but_list.push(new Button(250, 400, "Low Gravity", level6));
-        but_list.push(new Button(250, 470, "Tight Level", level7));
-        but_list.push(new Button(450, 50, "Speed Up", level8));
-        but_list.push(new Button(450, 120, "Don't Rush In", level9));
-        but_list.push(new Button(450, 190, "Moving Hoops", level10));
-        but_list.push(new Button(650, 50, "Mirror", level11));
+        but_list.push(new Button(60, 260, "Endless Run", level0));
+        but_list.push(new Button(250, 190, "PassAllHoops", level1));
+        but_list.push(new Button(250, 260, "5 Swishes", level2));
+        but_list.push(new Button(250, 330, "Strong Wings", level3));
+        but_list.push(new Button(250, 400, "Heavy Gravity", level4));
+        but_list.push(new Button(250, 470, "Patience", level5));
+        but_list.push(new Button(450, 190, "Low Gravity", level6));
+        but_list.push(new Button(450, 260, "Tight Level", level7));
+        but_list.push(new Button(450, 330, "Speed Up", level8));
+        but_list.push(new Button(450, 400, "Don't Rush In", level9));
+        but_list.push(new Button(450, 470, "Moving Hoops", level10));
+        but_list.push(new Button(650, 260, "Mirror", level11));
     }
-    but_list[0].textcolor = "red";
-    but_list[but_list.length-1].textcolor = "#510B7F";
+    but_list[0].textcolor = "white";
+    but_list[but_list.length-1].textcolor = "white";
     
     function clickHandler(event) {
       	const rect = canvas.getBoundingClientRect();
 	    const x = event.clientX - rect.left;
 	    const y = event.clientY - rect.top;
 
-    
+        
         for (let but of but_list) {
             if (but.buttonClicked(x, y)) {
                 //clearInterval(inter);
@@ -708,6 +751,7 @@ function menuScreen() {
     
    
     context.drawImage(bg, 0, 0, canvas.width, canvas.height);
+    context.drawImage(title_img, 350, 50, 160, 82);
     for (let but of but_list) {
         but.draw(context);
     }
@@ -729,15 +773,5 @@ function restartGame() {
     }
     menuScreen();
 }
-menuScreen();
-
-//level2();
-//level4();
-//level6();
-//level7();
-//level9();
-//level10();
-//level5();
-
-
+//menuScreen();
 

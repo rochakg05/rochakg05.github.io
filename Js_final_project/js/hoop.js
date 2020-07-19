@@ -24,8 +24,7 @@ class Hoop {
         this.img_front = img_front_object
 
         
-        // 292 x 32
-        // 50 x  
+         
         this.back_width = 120;
 
         this.back_height = (this.back_width / this.img_back.width) * this.img_back.height;
@@ -61,17 +60,14 @@ class Hoop {
             this.alpha -= ALPHA_RATE;
             if (this.alpha <= 0) {
                 this.alpha = 0;
+                this.solid = false;
             }
         }
         if (this.moving) {
 
             this.pos_y += this.vel_y;
                 
-            /*
-            if (Math.abs(this.pos_y - this.orig_y) >= HOOP_AMPLITUDE) {
-                this.vel_y = -this.vel_y;
-            }
-            */
+            
             if (this.pos_y >= this.lim_lower || this.pos_y <= this.lim_upper) {
                 this.vel_y = -this.vel_y;
             }
@@ -80,14 +76,6 @@ class Hoop {
         }
         // Check for swish
 
-        /*
-        if (!this.hoop_exit && this.swished) {
-            if( this.checkBallRingCollide(ball) ) {
-                this.swished = false;
-                alert("NO SWISH FOR YOU!");
-            }
-        }
-        */
 
         //this.pos_x -= SCROLL_SPEED;
         this.rect.x = this.pos_x  + this.offset;

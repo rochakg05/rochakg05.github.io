@@ -62,7 +62,7 @@ class VerticalHoop {
                 this.solid = false;
             }
         }
-        //this.pos_x -= SCROLL_SPEED;
+      
         this.rect.x = this.pos_x  + this.offset;
         this.rect_l.x = this.pos_x;
         this.rect_r.x = this.pos_x 
@@ -80,7 +80,6 @@ class VerticalHoop {
     
     checkBallRingCollide(ball) {
          if (!this.solid) { return false; }
-        //return ball.rect.checkCollide(this.rect_l) || ball.rect.checkCollide(this.rect_r); 
         return  ball.rect.checkCollideClearance(this.rect_l, 6, 0, 6) || ball.rect.checkCollideClearance(this.rect_r, 6, 6, 0);
 
     }

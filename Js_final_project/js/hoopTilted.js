@@ -72,11 +72,7 @@ class TiltedHoop {
 
             this.pos_y += delta_y;
             this.pos_x += delta_x;
-            /*
-            if (Math.abs(this.pos_y - this.orig_y) >= HOOP_AMPLITUDE) {
-                this.vel_y = -this.vel_y;
-            }
-            */
+            
             var dx = (this.orig_x - this.pos_x);
             var dy = (this.orig_y - this.pos_y);
             var dist = Math.sqrt(dx*dx + dy*dy);
@@ -90,14 +86,6 @@ class TiltedHoop {
         }
         // Check for swish
 
-        /*
-        if (!this.hoop_exit && this.swished) {
-            if( this.checkBallRingCollide(ball) ) {
-                this.swished = false;
-                alert("NO SWISH FOR YOU!");
-            }
-        }
-        */
         if (this.hoop_exit) {
             this.alpha -= ALPHA_RATE;
             if (this.alpha <= 0) {

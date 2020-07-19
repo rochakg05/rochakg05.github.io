@@ -1,4 +1,4 @@
-//unused
+
 class TextItem {
     constructor(text, x, y, color) {
         this.text = text;

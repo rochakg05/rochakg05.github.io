@@ -8,7 +8,6 @@ class Camera {
     }
     
     update() {
-    
         var cond = (this.player.pos_x < this.threshold);
 
         if (cond) {
